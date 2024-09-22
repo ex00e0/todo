@@ -21,6 +21,12 @@ $task_mess = $task_mess -> change_task($_POST['form'][0], $_POST['form'][1]);
     $counter = 0;
     if ($count !=0) {
     foreach ($tasks as $task) {
+        ?>
+        <img src="images/Detective-check-footprint 1.svg" class="detective" id="detective" style="display: none; ">
+      <div class="vh2_3" id="vh_empty" style="display: none; "></div>
+      <div class="empty" id="empty" style="display: none; ">Пусто...</div>
+      <?php
+  
         $counter++;
         if ($task[4] == 'false') {
     ?>
@@ -30,7 +36,7 @@ $task_mess = $task_mess -> change_task($_POST['form'][0], $_POST['form'][1]);
             <input type="checkbox" checked value="false" name="checkbox" style="display:none;">
         </form>
         <div></div>
-        <div class="not_done_note"><?=$task[2]?></div>
+        <div class="not_done_note" onclick="getDesc(<?=$task[0]?>)"><?=$task[2]?></div>
         <svg class="edit" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="getEdit(<?=$task[0]?>)">
             <path d="M7.67272 3.99106L1 10.6637V14H4.33636L11.0091 7.32736M7.67272 3.99106L10.0654 1.59837L10.0669 1.59695C10.3962 1.26759 10.5612 1.10261 10.7514 1.04082C10.9189 0.986392 11.0993 0.986392 11.2669 1.04082C11.4569 1.10257 11.6217 1.26735 11.9506 1.59625L13.4018 3.04738C13.7321 3.37769 13.8973 3.54292 13.9592 3.73337C14.0136 3.90088 14.0136 4.08133 13.9592 4.24885C13.8974 4.43916 13.7324 4.60414 13.4025 4.93398L13.4018 4.93468L11.0091 7.32736M7.67272 3.99106L11.0091 7.32736" stroke="#CDCDCD" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -57,7 +63,7 @@ $task_mess = $task_mess -> change_task($_POST['form'][0], $_POST['form'][1]);
             </svg>
         </form>
         <div></div>
-        <div class="done_note"><?=$task[2]?></div>
+        <div class="done_note" onclick="getDesc(<?=$task[0]?>)"><?=$task[2]?></div>
         <svg class="edit" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" onclick="getEdit(<?=$task[0]?>)">
             <path d="M7.67272 3.99106L1 10.6637V14H4.33636L11.0091 7.32736M7.67272 3.99106L10.0654 1.59837L10.0669 1.59695C10.3962 1.26759 10.5612 1.10261 10.7514 1.04082C10.9189 0.986392 11.0993 0.986392 11.2669 1.04082C11.4569 1.10257 11.6217 1.26735 11.9506 1.59625L13.4018 3.04738C13.7321 3.37769 13.8973 3.54292 13.9592 3.73337C14.0136 3.90088 14.0136 4.08133 13.9592 4.24885C13.8974 4.43916 13.7324 4.60414 13.4025 4.93398L13.4018 4.93468L11.0091 7.32736M7.67272 3.99106L11.0091 7.32736" stroke="#CDCDCD" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
