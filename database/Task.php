@@ -29,16 +29,21 @@ class Task extends Connect {
 
     public function get_tasks ($search, $filter, $sort) {
         $query = "SELECT * FROM tasks WHERE user_id = ".$_SESSION['user']." ";
-        if ($search != NULL) {
+        if ($search != NULL && $search != "") {
             $query.= "AND title LIKE '%$search%' ";
         }
-        if ($filter != NULL) {
+        // var_dump($filter);
+        if ($filter == "" || $filter == " ") {
+            $filter = NULL;
+        }
+        // var_dump($filter);
+        if ($filter != NULL && $filter != "" && $filter !='all') {
+            
             $query.= "AND is_completed = '$filter' ";
         }
-        if ($sort != NULL) {
+        if ($sort != NULL && $sort != "") {
             $query.= "ORDER BY $sort";
         }
-
         $tasks = $this->connection->query($query)->fetch_all();
         return $tasks;
     } 
@@ -90,15 +95,26 @@ class Task extends Connect {
         }
 
     }
-    public function check_task($title, $description, $search, $filter, $task_last_id) {
+    public function check_task($title, $description, $search, $filter, $sort, $task_last_id) {
 
         $query = "SELECT * FROM tasks WHERE user_id = ".$_SESSION['user']." AND id = $task_last_id ";
-        if ($search != NULL) {
+        if ($search != NULL && $search != "") {
             $query.= "AND title LIKE '%$search%' ";
         }
-        if ($filter != NULL) {
+        // var_dump($filter);
+        if ($filter == "" || $filter == " ") {
+            $filter = NULL;
+        }
+        // var_dump($filter);
+        if ($filter != NULL && $filter != "" && $filter !='all') {
+            
             $query.= "AND is_completed = '$filter' ";
         }
+        if ($sort != NULL && $sort != "") {
+            $query.= "ORDER BY $sort";
+        }
+        
+        // var_dump($query);
         $check = $this->connection->query($query)->num_rows;
         return $check;
     }
