@@ -301,3 +301,36 @@ function getEdit(id) {
         }
     });
 }
+
+function getDesc(id) {
+    let request_data = $("#search").val();
+      let request_data2 = $("#filter").val();
+      let request_data3 = $("#sort").val();
+            
+    $.ajax({
+        type: "POST", // Метод отправки
+        url: "user/get_desc.php", // Путь до php файла отправителя
+        data: {
+            search: request_data,   
+            filter: request_data2,
+            sort: request_data3,
+            get: id},
+        success: function (html) {
+            document.getElementById("shadow").style.display = "block";
+            if ( window.innerHeight > document.getElementById("body").scrollHeight) {
+                document.getElementById("shadow").style.height = `${window.innerHeight}px`;
+               }
+              else {
+                document.getElementById("shadow").style.height = `${document.getElementById("body").scrollHeight}px`;
+              }
+            // document.getElementById("shadow").style.height = `${document.getElementById("body").scrollHeight}px`;;
+            
+           // document.getElementsByClassName("done")[item].classList.remove('done');
+           // document.getElementsByClassName("done")[item].classList.add('not_done');
+           // //  $('#modal'). trigger('reset');
+            $("#ajax").html(html);
+            document.getElementById("modal_desc").style.display = "grid";
+            
+        }
+    });
+}
