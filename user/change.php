@@ -1,9 +1,12 @@
 <?php 
 require "../database/Task.php";
 $task_mess = new Task;
-
+if (isset($_POST['id']) && isset($_POST['checkbox'])) {
+    $task_mess = $task_mess -> change_task($_POST['id'], $_POST['checkbox']);
+}
+else {
 $task_mess = $task_mess -> change_task($_POST['form'][0], $_POST['form'][1]);
-
+}
 
 ?>
 
