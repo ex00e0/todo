@@ -75,6 +75,24 @@ $("#modal_edit").off('submit').on('submit', function (e) {
         }
     });
 });
+
+$("#modal_confirm").off('submit').on('submit', function (e) { 
+    e.preventDefault();
+    var form_data = $(this).serialize();
+
+    $.ajax({
+        type: "POST",
+        url: "user/change.php",
+        data: form_data,
+        success: function (html) {
+            document.getElementById("shadow").style.display = "none";
+            document.getElementById("modal_confirm").style.display = "none";
+            // $('#modal').trigger('reset');
+            $("#main").html(html);
+            setInterval(func, 4000);
+        }
+    });
+});
 //     $("#modal").submit(function (e) { // Устанавливаем событие отправки для формы с id=form
 //     e.preventDefault();
 //      var form_data = $(this).serialize(); // Собираем все данные из формы
@@ -108,7 +126,7 @@ Object.keys(document.getElementsByClassName("done")).forEach(function(item, inde
             
              $.ajax({
                  type: "POST", // Метод отправки
-                 url: "user/change.php", // Путь до php файла отправителя
+                 url: "user/confirm_change.php", // Путь до php файла отправителя
                  data: {
                     search: request_data,   
                     filter: request_data2,
@@ -119,8 +137,17 @@ Object.keys(document.getElementsByClassName("done")).forEach(function(item, inde
                     // document.getElementsByClassName("done")[item].classList.remove('done');
                     // document.getElementsByClassName("done")[item].classList.add('not_done');
                     // //  $('#modal'). trigger('reset');
-                     $("#main").html(html);
-                     setInterval(func, 4000);
+                    $("#ajax").html(html);
+                    document.getElementById("shadow").style.display = "block";
+                    if ( window.innerHeight > document.getElementById("body").scrollHeight) {
+                        document.getElementById("shadow").style.height = `${window.innerHeight}px`;
+                       }
+                      else {
+                        document.getElementById("shadow").style.height = `${document.getElementById("body").scrollHeight}px`;
+                      }
+                    document.getElementById("modal_confirm").style.display = "grid";
+                    //  $("#main").html(html);
+                    //  setInterval(func, 4000);
                     //  session_start();
                     //  alert("Задача добавлена!");
                  }
@@ -156,8 +183,11 @@ Object.keys(document.getElementsByClassName("done")).forEach(function(item, inde
                     // document.getElementsByClassName("done")[item].classList.remove('done');
                     // document.getElementsByClassName("done")[item].classList.add('not_done');
                     // //  $('#modal'). trigger('reset');
+                    
                      $("#main").html(html);
                      setInterval(func, 4000);
+
+
                     //  session_start();
                     //  alert("Задача добавлена!");
                  }
